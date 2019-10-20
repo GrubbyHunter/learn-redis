@@ -9,8 +9,28 @@ client.on("connect", () => {
     console.log("往newSet集合添加两个元素: ", data) // 2
   })
 
-  client.smembers("newSet", (err, data) => {
-    console.log("获取newSet集合全部元素: ", data) // item2", "item1"
+  client.sadd("newSet1", "item1", "item3", (err, data) => {
+    console.log("往newSet1集合添加两个元素: ", data) // 2
+  })
+
+  client.sdiff("newSet", "newSet1", (err, data) => {
+    console.log("获取两个集合中不同的元素: ", data) //  ["set002", "set001", "item2"]
+  })
+
+  client.sinter("newSet", "newSet1", (err, data) => {
+    console.log("获取两个集合中相同的元素: ", data) // ["item1"]
+  })
+
+  client.sunion("newSet", "newSet1", (err, data) => {
+    console.log("获取两个集合的并集: ", data) //  ["set001", "item2", "item1", "item3", "set002"]
+  })
+
+  client.smove("newSet", "newSet1", "set001", (err, data) => {
+    console.log("将newSet中的set001移动到newSet1 ", data)
+  })
+
+  client.scard("newSet", (err, data) => {
+    console.log("获取newSet集合元素个数: ", data) // 4
   })
 
   client.sismember("newSet", "item2", (err, data) => {
