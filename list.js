@@ -12,8 +12,30 @@ client.on("connect", () => {
   client.rpush("newList", "item3", "item4", (err, data) => {
     console.log("往newList链表尾部的插入两个元素: ", data) // 4
   })
+
+  client.linsert("newList", "BEFORE", "item4", "newItem", (err, data) => {
+    console.log("在item4的元素之前插入一个元素", data)
+  })
+
   client.lrange("newList", 0, 10, (err, data) => {
     console.log("获取newList链表下标从0到10的元素：", data) // ["item2", "item1", "item2", "item1", "item3", "item4"]
+  })
+
+  client.rpoplpush("newList", "newList001", (err, data) => {
+    console.log("将newList中的最后一个元素移除，插入newList001的头部：", data)
+    // ["item2", "item1", "item2", "item1", "item3", "item4"]
+  })
+
+  client.ltrim("newList", 2, 4, (err, data) => {
+    console.log("只保留newList下标是2和4之间的元素", data) //ok
+  })
+
+  client.lrange("newList", 0, 10, (err, data) => {
+    console.log("获取newList链表下标从0到10的元素：", data) // ["item2", "item1", "item2", "item1", "item3", "item4"]
+  })
+
+  client.lrange("newList001", 0, 10, (err, data) => {
+    console.log("获取newList001：", data) // ["item4"]
   })
 
   client.lindex("newList", 4, (err, data) => {
