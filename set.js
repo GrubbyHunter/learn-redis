@@ -5,6 +5,7 @@ client.on("connect", () => {
   console.log("******redis 连接成功******")
 
   // set类型的相关操作
+
   client.sadd("newSet", "item1", "item2", (err, data) => {
     console.log("往newSet集合添加两个元素: ", data) // 2
   })
