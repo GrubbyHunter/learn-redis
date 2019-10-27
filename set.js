@@ -10,7 +10,8 @@ client.on("connect", () => {
   })
 
   client.sadd("newSet1", "item1", "item3", (err, data) => {
-    console.log("往newSet1集合添加两个元素: ", data) // 2
+    console.log("往newSet1集合添加两个元素: ", data)
+    // 2
   })
 
   client.sdiff("newSet", "newSet1", (err, data) => {
